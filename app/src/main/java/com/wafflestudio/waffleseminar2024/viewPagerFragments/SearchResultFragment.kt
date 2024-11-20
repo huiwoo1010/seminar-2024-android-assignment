@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wafflestudio.waffleseminar2024.HomeActivity
 import com.wafflestudio.waffleseminar2024.Movie
+import com.wafflestudio.waffleseminar2024.MovieItem
 import com.wafflestudio.waffleseminar2024.R
 import com.wafflestudio.waffleseminar2024.databinding.FragmentSearchresultBinding
 import com.wafflestudio.waffleseminar2024.adapter.searchResultRecyclerViewAdapter
@@ -44,7 +45,7 @@ class SearchResultFragment : Fragment() {
         navController = findNavController()
 
         val args: SearchResultFragmentArgs by navArgs()
-        val movies: Array<Movie> = args.movieList
+        val movies: Array<MovieItem> = args.movieList
 
         val searchEditText: EditText = binding.searchEditText
         val searchButton: ImageView = binding.searchButton
@@ -72,7 +73,7 @@ class SearchResultFragment : Fragment() {
         searchResultRecyclerView = binding.searchResultRecyclerView
     }
 
-    private fun showResult(data: List<Movie>) {
+    private fun showResult(data: List<MovieItem>) {
         searchResultRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         searchResultRecyclerView.adapter = searchResultRecyclerViewAdapter(data) { movie ->
             val action = SearchResultFragmentDirections.actionToMovieDetailFragment(movie.id)

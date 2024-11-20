@@ -92,4 +92,15 @@ class MyConverters {
         val listType = object : TypeToken<List<Language>>() {}.type
         return gson.fromJson(jsonFormValue, listType)
     }
+
+    @TypeConverter
+    fun fromListInt(value: List<Int>?): String {
+        return gson.toJson(value)
+    }
+
+    @TypeConverter
+    fun toListInt(value: String): List<Int> {
+        val listType = object : TypeToken<List<Int>>() {}.type
+        return gson.fromJson(value, listType)
+    }
 }

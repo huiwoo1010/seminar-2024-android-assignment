@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 
+
 @Serializable
 @Parcelize
 data class Movie(
@@ -22,8 +23,30 @@ data class Movie(
     val runtime: Int?,
     val status: String?,
     val vote_average: Double,
-    val genres: List<Genre>?
+    val genre_ids: List<Genre>?
 ) : Parcelable
+
+@Serializable
+@Parcelize
+data class MovieItem(
+    @PrimaryKey val id: Int,
+    val title: String,
+    val original_title: String,
+    val backdrop_path: String?,
+    val budget: Int,
+    val overview: String?,
+    val poster_path: String?,
+    val release_date: String?,
+    val revenue: Int,
+    val runtime: Int?,
+    val status: String?,
+    val vote_average: Double,
+    val genre_ids: List<Int>?
+) : Parcelable
+
+data class MovieResponse(
+    val results: List<MovieItem>
+)
 
 data class Company(
     val id: Int,

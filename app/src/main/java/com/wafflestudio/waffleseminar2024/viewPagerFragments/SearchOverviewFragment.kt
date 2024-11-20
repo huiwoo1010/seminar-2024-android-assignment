@@ -17,6 +17,7 @@ import com.wafflestudio.waffleseminar2024.GenreList
 import com.wafflestudio.waffleseminar2024.adapter.GenreRecyclerViewAdapter
 import com.wafflestudio.waffleseminar2024.HomeActivity
 import com.wafflestudio.waffleseminar2024.Movie
+import com.wafflestudio.waffleseminar2024.MovieItem
 //import com.wafflestudio.waffleseminar2024.MovieData
 import com.wafflestudio.waffleseminar2024.R
 import com.wafflestudio.waffleseminar2024.databinding.FragmentSearchoverviewBinding
@@ -87,7 +88,7 @@ class SearchOverviewFragment : Fragment(), OnGenreClickListener {
         }
     }
 
-    private fun showResult(data: List<Movie>) {
+    private fun showResult(data: List<MovieItem>) {
         val action = SearchInputFragmentDirections.actionToSearchResultFragment(data.toTypedArray())
         navController.navigate(action)
     }

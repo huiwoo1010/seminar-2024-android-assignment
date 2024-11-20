@@ -20,6 +20,6 @@ interface MyDao {
     @Query("SELECT * FROM example_table2 WHERE title LIKE '%' || :titleWord || '%'")
     fun getMoviesByTitle(titleWord: String): List<MyEntity>
 
-    @Query("SELECT * FROM example_table2 WHERE genres LIKE '%' || :genreId || '%'")
+    @Query("SELECT * FROM example_table2 WHERE genre_ids LIKE '%' || :genreId || '%'")
     fun getMoviesByGenre(genreId: Int): List<MyEntity>
 }

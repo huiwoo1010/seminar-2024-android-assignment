@@ -1,3 +1,4 @@
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -8,6 +9,15 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootDir.resolve("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
+// API_KEY 값을 읽어오기
+val apiKey: String = localProperties.getProperty("API_KEY") ?: ""
+
 android {
     namespace = "com.wafflestudio.waffleseminar2024"
     compileSdk = 34
@@ -17,12 +27,17 @@ android {
         }
     }
     defaultConfig {
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
         applicationId = "com.wafflestudio.waffleseminar2024"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -43,6 +58,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation(libs.coil)
     implementation(libs.kotlinx.serialization.json)
@@ -59,6 +75,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.adapters)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.retrofit)
+    implementation(libs.gsonConverterFactory)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

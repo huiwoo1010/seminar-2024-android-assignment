@@ -7,11 +7,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.wafflestudio.waffleseminar2024.Movie
+import com.wafflestudio.waffleseminar2024.MovieItem
 import com.wafflestudio.waffleseminar2024.R
 
 class searchResultRecyclerViewAdapter(
-    private val movieList: List<Movie>,
-    private val onMovieClick: (Movie) -> Unit
+    private val movieList: List<MovieItem>,
+    private val onMovieClick: (MovieItem) -> Unit
 ) : RecyclerView.Adapter<searchResultRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

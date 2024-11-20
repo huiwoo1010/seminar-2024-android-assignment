@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wafflestudio.waffleseminar2024.Movie
+import com.wafflestudio.waffleseminar2024.MovieItem
 import com.wafflestudio.waffleseminar2024.data.database.MovieRepository
 import com.wafflestudio.waffleseminar2024.data.database.MyEntity
 import kotlinx.coroutines.Dispatchers
@@ -15,17 +16,17 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     private val _movie = MutableLiveData<MyEntity>()
     val movie: LiveData<MyEntity> get() = _movie
 
-    private val _searchResults = MutableLiveData<List<Movie>>()
-    val searchResults: LiveData<List<Movie>> get() = _searchResults
+    private val _searchResults = MutableLiveData<List<MovieItem>>()
+    val searchResults: LiveData<List<MovieItem>> get() = _searchResults
 
     fun fetchMovieDetails(id: Int) {
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             // IO 스레드에서 데이터베이스 작업 수행
             val movieDetails = withContext(Dispatchers.IO) {
                 repository.getMovieById(id)  // 데이터베이스에서 영화 정보 가져오기
             }
             _movie.value = movieDetails
-        }
+        }*/
     }
 
     fun titleQuery(titleWord: String) {
@@ -33,7 +34,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
             // IO 스레드에서 데이터베이스 작업 수행
             val movies = withContext(Dispatchers.IO) {
                 repository.getMoviesByTitle(titleWord).map { entity ->
-                    Movie(
+                    MovieItem(
                         id = entity.id ?: 0,
                         title = entity.title ?: "",
                         original_title = entity.original_title ?: "",
@@ -44,7 +45,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                         vote_average = entity.vote_average ?: 0.0,
                         runtime = entity.runtime,
                         status = entity.status ?: "",
-                        genres = entity.genres,
+                        genre_ids = entity.genre_ids,
                         budget = entity.budget ?: 0,
                         revenue = entity.revenue ?: 0
                     )
@@ -59,7 +60,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
             // IO 스레드에서 데이터베이스 작업 수행
             val movies = withContext(Dispatchers.IO) {
                 repository.getMoviesByGenre(genreId).map { entity ->
-                    Movie(
+                    MovieItem(
                         id = entity.id ?: 0,
                         title = entity.title ?: "",
                         original_title = entity.original_title ?: "",
@@ -70,7 +71,7 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
                         vote_average = entity.vote_average ?: 0.0,
                         runtime = entity.runtime,
                         status = entity.status ?: "",
-                        genres = entity.genres,
+                        genre_ids = entity.genre_ids,
                         budget = entity.budget ?: 0,
                         revenue = entity.revenue ?: 0
                     )

@@ -1,8 +1,10 @@
 package com.wafflestudio.waffleseminar2024.data.database
 
 import com.wafflestudio.waffleseminar2024.BuildConfig
+import com.wafflestudio.waffleseminar2024.Movie
 import com.wafflestudio.waffleseminar2024.MovieResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieRestAPI {
@@ -25,4 +27,14 @@ interface MovieRestAPI {
         @Query("include_video") includeVideo: Boolean = true,
         @Query("page") page: Int = 1
     ): MovieResponse
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieById(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("sort_by") sortBy: String = "popularity.desc",
+        @Query("include_adult") includeAdult: Boolean = true,
+        @Query("include_video") includeVideo: Boolean = true,
+        @Query("page") page: Int = 1
+    ): Movie
 }

@@ -26,6 +26,7 @@ data class MyEntity(
     val status: String?,
     val vote_average: Double?,
     val genre_ids: List<Int>?,
+    val genres: List<Genre>?,
     val homepage: String?,
     val original_language: String?,
     val popularity: Float?,

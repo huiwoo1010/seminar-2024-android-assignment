@@ -20,13 +20,12 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     val searchResults: LiveData<List<MovieItem>> get() = _searchResults
 
     fun fetchMovieDetails(id: Int) {
-        /*viewModelScope.launch {
-            // IO 스레드에서 데이터베이스 작업 수행
+        viewModelScope.launch {
             val movieDetails = withContext(Dispatchers.IO) {
-                repository.getMovieById(id)  // 데이터베이스에서 영화 정보 가져오기
+                repository.getMovieById(id)
             }
             _movie.value = movieDetails
-        }*/
+        }
     }
 
     fun titleQuery(titleWord: String) {

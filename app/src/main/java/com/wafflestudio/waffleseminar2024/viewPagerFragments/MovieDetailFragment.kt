@@ -45,7 +45,7 @@ class MovieDetailFragment : Fragment() {
         viewModel.fetchMovieDetails(movieId)
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             movie?.let {
-                //it.genre_ids?.let { it1 -> setupRecyclerView(it1) }
+                it.genres?.let { it1 -> setupRecyclerView(it1) }
                 binding.movieTitle.text = it.title
                 binding.backdropImg.load("https://image.tmdb.org/t/p/original" + it.backdrop_path)
                 binding.posterImg.load("https://image.tmdb.org/t/p/original" + it.poster_path)

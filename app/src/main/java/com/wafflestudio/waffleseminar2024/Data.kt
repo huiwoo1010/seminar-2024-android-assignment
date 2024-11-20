@@ -23,7 +23,7 @@ data class Movie(
     val runtime: Int?,
     val status: String?,
     val vote_average: Double,
-    val genre_ids: List<Genre>?
+    val genres: List<Genre>?
 ) : Parcelable
 
 @Serializable

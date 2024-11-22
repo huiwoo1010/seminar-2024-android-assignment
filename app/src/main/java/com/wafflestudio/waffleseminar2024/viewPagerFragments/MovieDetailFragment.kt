@@ -1,12 +1,15 @@
 package com.wafflestudio.waffleseminar2024.viewPagerFragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -14,16 +17,21 @@ import com.wafflestudio.waffleseminar2024.Genre
 import com.wafflestudio.waffleseminar2024.R
 import com.wafflestudio.waffleseminar2024.adapter.GenreChipAdapter
 import com.wafflestudio.waffleseminar2024.databinding.FragmentMovieDetailBinding
+import com.wafflestudio.waffleseminar2024.viewmodel.FavmovieViewModel
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModel
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModelFactory
+import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
+import androidx.core.content.ContextCompat
+import com.wafflestudio.waffleseminar2024.viewmodel.FavmovieViewModelFactory
 
 class MovieDetailFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val viewModel: MovieViewModel by viewModels { MovieViewModelFactory(requireContext()) }
+    private val favMovieViewModel: FavmovieViewModel by viewModels { FavmovieViewModelFactory(requireContext()) }
     private val movieId: Int by lazy {
         arguments?.getInt("movieId") ?: 0
     }
@@ -60,11 +68,34 @@ class MovieDetailFragment : Fragment() {
                 binding.revenueText.text = DecimalFormat("$#,###").format(it.revenue)
             }
         }
+
+        binding.favoriteButton.setImageResource(R.drawable.star_filled)
+        binding.favoriteButton.setOnClickListener {
+            val movie = viewModel.movie.value
+            movie?.let {
+                it.isFavorite = !it.isFavorite
+                viewModel.updateMovie(it)
+
+                lifecycleScope.launch {
+                    favMovieViewModel.toggleFavoriteStatus(it)
+                }
+
+                updateFavoriteButtonIcon(it.isFavorite) // UI 갱신
+                Log.d("MyApp", "Favorite status: ${it.isFavorite}")
+            } ?: Log.d("MyApp", "Movie is null")
+        }
     }
 
     private fun setupRecyclerView(data: List<Genre>) {
         genreChipAdapter = GenreChipAdapter(data)
         binding.genreRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.genreRecyclerView.adapter = genreChipAdapter
+    }
+
+    private fun updateFavoriteButtonIcon(isFavorite: Boolean) {
+        val color = if (isFavorite) { "#1BD0C8" } else { "#D8D8D8" }
+        val drawable = binding.favoriteButton.drawable?.mutate()
+        drawable?.setTint(Color.parseColor(color))
+        binding.favoriteButton.setImageDrawable(drawable)
     }
 }

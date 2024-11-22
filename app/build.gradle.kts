@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation(libs.retrofit)
     implementation(libs.gsonConverterFactory)
+    implementation(libs.androidx.ui.graphics.android)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

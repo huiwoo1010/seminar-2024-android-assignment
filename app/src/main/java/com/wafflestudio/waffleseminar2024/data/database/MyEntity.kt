@@ -34,5 +34,6 @@ data class MyEntity(
     val production_countries: String?,
     val spoken_languages: String?,
     val tagline: String?,
-    val vote_count: Int?
+    val vote_count: Int?,
+    var isFavorite: Boolean
 )

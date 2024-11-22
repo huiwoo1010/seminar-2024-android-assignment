@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [MyEntity::class], version = 1)
+@Database(entities = [MyEntity::class], version = 2)
 @TypeConverters(MyConverters::class)
 abstract class MyDatabase : RoomDatabase() {
     abstract fun myDao(): MyDao
@@ -25,7 +25,8 @@ abstract class MyDatabase : RoomDatabase() {
                     MyDatabase::class.java,
                     "example_database"
                 )
-                    .createFromAsset("database/prepopulated_db.db") // 이 부분을 추가합니다.
+                    //.createFromAsset("database/prepopulated_db.db")
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
 

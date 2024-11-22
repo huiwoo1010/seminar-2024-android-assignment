@@ -22,4 +22,14 @@ interface MyDao {
 
     @Query("SELECT * FROM example_table2 WHERE genre_ids LIKE '%' || :genreId || '%'")
     fun getMoviesByGenre(genreId: Int): List<MyEntity>
+
+
+    @Query("SELECT * FROM example_table2 WHERE isFavorite = 1")
+    suspend fun getFavoriteMovies(): List<MyEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateMovie(movie: MyEntity)
+
+    @Query("UPDATE example_table2 SET isFavorite = :isFavorite WHERE id = :id")
+    suspend fun updateFavoriteStatus(id: Int, isFavorite: Boolean)
 }

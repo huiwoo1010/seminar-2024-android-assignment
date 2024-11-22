@@ -61,7 +61,6 @@
         android:src="@drawable/star_filled"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_margin="16dp"
-        app:tint="@color/favorite_icon_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

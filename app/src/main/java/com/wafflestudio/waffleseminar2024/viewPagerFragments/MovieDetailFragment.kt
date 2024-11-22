@@ -50,6 +50,11 @@ class MovieDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
+        favMovieViewModel.isFavoriteMovie(movieId)
+        favMovieViewModel.isFavoriteMovie.observe(viewLifecycleOwner) { isFavorite ->
+            updateFavoriteButtonIcon(isFavorite)
+        }
+
         viewModel.fetchMovieDetails(movieId)
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             movie?.let {
@@ -69,20 +74,20 @@ class MovieDetailFragment : Fragment() {
             }
         }
 
-        binding.favoriteButton.setImageResource(R.drawable.star_filled)
+
         binding.favoriteButton.setOnClickListener {
-            val movie = viewModel.movie.value
-            movie?.let {
-                it.isFavorite = !it.isFavorite
-                viewModel.updateMovie(it)
-
-                lifecycleScope.launch {
-                    favMovieViewModel.toggleFavoriteStatus(it)
+            viewModel.fetchMovieDetails(movieId)
+            viewModel.movie.observe(viewLifecycleOwner) { movie ->
+                movie?.let {
+                    it.isFavorite = !it.isFavorite
+                    lifecycleScope.launch {
+                        favMovieViewModel.toggleFavoriteStatus(it)
+                    }
                 }
-
-                updateFavoriteButtonIcon(it.isFavorite) // UI 갱신
-                Log.d("MyApp", "Favorite status: ${it.isFavorite}")
-            } ?: Log.d("MyApp", "Movie is null")
+            }
+            updateFavoriteButtonIcon(viewModel.movie.value!!.isFavorite)
+            Log.d("MyApp", "livedata")
+            Log.d("MyApp", viewModel.movie.value!!.isFavorite.toString())
         }
     }
 

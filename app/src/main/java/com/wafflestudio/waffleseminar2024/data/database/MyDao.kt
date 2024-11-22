@@ -27,9 +27,13 @@ interface MyDao {
     @Query("SELECT * FROM example_table2 WHERE isFavorite = 1")
     suspend fun getFavoriteMovies(): List<MyEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdateMovie(movie: MyEntity)
-
     @Query("UPDATE example_table2 SET isFavorite = :isFavorite WHERE id = :id")
     suspend fun updateFavoriteStatus(id: Int, isFavorite: Boolean)
+
+    @Query("SELECT COUNT(*) FROM example_table2")
+    suspend fun getCount(): Int
+
+    @Query("SELECT isFavorite FROM example_table2 WHERE id = :movieId")
+    suspend fun isFavoriteMovie(movieId: Int): Boolean
+
 }

@@ -18,11 +18,9 @@ class FavmovieViewModel(private val repository: FavmovieRepository) : ViewModel(
     private val _isFavoriteMovie = MutableLiveData<Boolean>()
     val isFavoriteMovie: LiveData<Boolean> get() = _isFavoriteMovie
 
-    suspend fun toggleFavoriteStatus(movie: MyEntity) {
-        val newStatus = movie.isFavorite
-        Log.d("MyApp","newStatus")
-        Log.d("MyApp",newStatus.toString())
-        repository.updateFavoriteStatus(movie.id!!, newStatus)
+    suspend fun toggleFavoriteStatus(movieId: Int) {
+        isFavoriteMovie(movieId)
+        repository.updateFavoriteStatus(movieId!!, !isFavoriteMovie.value!!)
         loadFavoriteMovies()
         Log.d("MyApp",getFavoriteMoviesCount().toString())
     }

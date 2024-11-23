@@ -17,12 +17,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.wafflestudio.waffleseminar2024.Movie
-import com.wafflestudio.waffleseminar2024.MovieItem
-//import com.wafflestudio.waffleseminar2024.MovieData
 import com.wafflestudio.waffleseminar2024.R
 import com.wafflestudio.waffleseminar2024.databinding.FragmentSearchinputBinding
 import com.wafflestudio.waffleseminar2024.adapter.searchTermRecyclerViewAdapter
+import com.wafflestudio.waffleseminar2024.data.database.MyEntity
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModel
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModelFactory
 import com.wafflestudio.waffleseminar2024.viewmodel.SearchInputViewmodel
@@ -108,7 +106,7 @@ class SearchInputFragment: Fragment() {
         inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    private fun showResult(data: List<MovieItem>) {
+    private fun showResult(data: List<MyEntity>) {
         val action = SearchInputFragmentDirections.actionToSearchResultFragment(data.toTypedArray())
         navController.navigate(action)
     }

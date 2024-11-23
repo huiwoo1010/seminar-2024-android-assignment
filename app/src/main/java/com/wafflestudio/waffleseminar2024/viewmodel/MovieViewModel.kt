@@ -16,8 +16,8 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
     private val _movie = MutableLiveData<MyEntity>()
     val movie: LiveData<MyEntity> get() = _movie
 
-    private val _searchResults = MutableLiveData<List<MovieItem>>()
-    val searchResults: LiveData<List<MovieItem>> get() = _searchResults
+    private val _searchResults = MutableLiveData<List<MyEntity>>()
+    val searchResults: LiveData<List<MyEntity>> get() = _searchResults
 
     fun updateMovie(movie: MyEntity) {
         _movie.value = movie
@@ -34,53 +34,19 @@ class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
 
     fun titleQuery(titleWord: String) {
         viewModelScope.launch {
-            // IO 스레드에서 데이터베이스 작업 수행
             val movies = withContext(Dispatchers.IO) {
-                repository.getMoviesByTitle(titleWord).map { entity ->
-                    MovieItem(
-                        id = entity.id ?: 0,
-                        title = entity.title ?: "",
-                        original_title = entity.original_title ?: "",
-                        backdrop_path = entity.backdrop_path ?: "",
-                        overview = entity.overview ?: "",
-                        poster_path = entity.poster_path ?: "",
-                        release_date = entity.release_date ?: "",
-                        vote_average = entity.vote_average ?: 0.0,
-                        runtime = entity.runtime,
-                        status = entity.status ?: "",
-                        genre_ids = entity.genre_ids,
-                        budget = entity.budget ?: 0,
-                        revenue = entity.revenue ?: 0
-                    )
-                }
+                repository.getMoviesByTitle(titleWord)
             }
-            _searchResults.value = movies  // 검색 결과 업데이트
+            _searchResults.value = movies
         }
     }
 
     fun genreQuery(genreId: Int) {
         viewModelScope.launch {
-            // IO 스레드에서 데이터베이스 작업 수행
             val movies = withContext(Dispatchers.IO) {
-                repository.getMoviesByGenre(genreId).map { entity ->
-                    MovieItem(
-                        id = entity.id ?: 0,
-                        title = entity.title ?: "",
-                        original_title = entity.original_title ?: "",
-                        backdrop_path = entity.backdrop_path ?: "",
-                        overview = entity.overview ?: "",
-                        poster_path = entity.poster_path ?: "",
-                        release_date = entity.release_date ?: "",
-                        vote_average = entity.vote_average ?: 0.0,
-                        runtime = entity.runtime,
-                        status = entity.status ?: "",
-                        genre_ids = entity.genre_ids,
-                        budget = entity.budget ?: 0,
-                        revenue = entity.revenue ?: 0
-                    )
-                }
+                repository.getMoviesByGenre(genreId)
             }
-            _searchResults.value = movies  // 검색 결과 업데이트
+            _searchResults.value = movies
         }
     }
 }

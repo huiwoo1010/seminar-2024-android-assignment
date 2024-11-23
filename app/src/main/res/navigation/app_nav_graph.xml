@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/FavMovieFragment">
+
+    <fragment
+        android:id="@+id/FavMovieFragment"
+        android:name="com.wafflestudio.waffleseminar2024.viewPagerFragments.FavMovieFragment"
+        android:label="Fav Movie">
+        <action
+            android:id="@+id/action_to_movieDetailFragment"
+            app:destination="@id/MovieDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/MovieDetailFragment"
+        android:name="com.wafflestudio.waffleseminar2024.viewPagerFragments.MovieDetailFragment"
+        android:label="Movie Detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

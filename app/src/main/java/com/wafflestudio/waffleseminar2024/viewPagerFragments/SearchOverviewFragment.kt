@@ -20,6 +20,7 @@ import com.wafflestudio.waffleseminar2024.Movie
 import com.wafflestudio.waffleseminar2024.MovieItem
 //import com.wafflestudio.waffleseminar2024.MovieData
 import com.wafflestudio.waffleseminar2024.R
+import com.wafflestudio.waffleseminar2024.data.database.MyEntity
 import com.wafflestudio.waffleseminar2024.databinding.FragmentSearchoverviewBinding
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModel
 import com.wafflestudio.waffleseminar2024.viewmodel.MovieViewModelFactory
@@ -88,7 +89,7 @@ class SearchOverviewFragment : Fragment(), OnGenreClickListener {
         }
     }
 
-    private fun showResult(data: List<MovieItem>) {
+    private fun showResult(data: List<MyEntity>) {
         val action = SearchInputFragmentDirections.actionToSearchResultFragment(data.toTypedArray())
         navController.navigate(action)
     }

@@ -1,5 +1,6 @@
 package com.wafflestudio.waffleseminar2024.data.database
 
+import android.os.Parcelable
 import androidx.databinding.adapters.Converters
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -9,9 +10,11 @@ import com.wafflestudio.waffleseminar2024.Company
 import com.wafflestudio.waffleseminar2024.Country
 import com.wafflestudio.waffleseminar2024.Genre
 import com.wafflestudio.waffleseminar2024.Language
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "example_table2")
 @TypeConverters(MyConverters::class)
+@Parcelize
 data class MyEntity(
     @PrimaryKey val id: Int?,
     val title: String?,
@@ -36,4 +39,4 @@ data class MyEntity(
     val tagline: String?,
     val vote_count: Int?,
     var isFavorite: Boolean
-)
+) : Parcelable

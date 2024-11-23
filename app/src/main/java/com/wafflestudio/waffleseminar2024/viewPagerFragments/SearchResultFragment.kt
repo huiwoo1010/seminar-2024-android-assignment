@@ -19,6 +19,7 @@ import com.wafflestudio.waffleseminar2024.MovieItem
 import com.wafflestudio.waffleseminar2024.R
 import com.wafflestudio.waffleseminar2024.databinding.FragmentSearchresultBinding
 import com.wafflestudio.waffleseminar2024.adapter.searchResultRecyclerViewAdapter
+import com.wafflestudio.waffleseminar2024.data.database.MyEntity
 
 
 class SearchResultFragment : Fragment() {
@@ -45,7 +46,7 @@ class SearchResultFragment : Fragment() {
         navController = findNavController()
 
         val args: SearchResultFragmentArgs by navArgs()
-        val movies: Array<MovieItem> = args.movieList
+        val movies: Array<MyEntity> = args.movieList
 
         val searchEditText: EditText = binding.searchEditText
         val searchButton: ImageView = binding.searchButton
@@ -73,10 +74,10 @@ class SearchResultFragment : Fragment() {
         searchResultRecyclerView = binding.searchResultRecyclerView
     }
 
-    private fun showResult(data: List<MovieItem>) {
+    private fun showResult(data: List<MyEntity>) {
         searchResultRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         searchResultRecyclerView.adapter = searchResultRecyclerViewAdapter(data) { movie ->
-            val action = SearchResultFragmentDirections.actionToMovieDetailFragment(movie.id)
+            val action = SearchResultFragmentDirections.actionToMovieDetailFragment(movie.id!!)
             navController.navigate(action)
         }
     }

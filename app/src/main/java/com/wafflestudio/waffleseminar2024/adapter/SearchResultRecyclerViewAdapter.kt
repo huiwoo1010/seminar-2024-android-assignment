@@ -9,10 +9,11 @@ import coil.load
 import com.wafflestudio.waffleseminar2024.Movie
 import com.wafflestudio.waffleseminar2024.MovieItem
 import com.wafflestudio.waffleseminar2024.R
+import com.wafflestudio.waffleseminar2024.data.database.MyEntity
 
 class searchResultRecyclerViewAdapter(
-    private val movieList: List<MovieItem>,
-    private val onMovieClick: (MovieItem) -> Unit
+    private val movieList: List<MyEntity>,
+    private val onMovieClick: (MyEntity) -> Unit
 ) : RecyclerView.Adapter<searchResultRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -77,17 +77,13 @@ class MovieDetailFragment : Fragment() {
 
         binding.favoriteButton.setOnClickListener {
             viewModel.fetchMovieDetails(movieId)
-            viewModel.movie.observe(viewLifecycleOwner) { movie ->
-                movie?.let {
-                    it.isFavorite = !it.isFavorite
-                    lifecycleScope.launch {
-                        favMovieViewModel.toggleFavoriteStatus(it)
-                    }
-                }
+            lifecycleScope.launch {
+                favMovieViewModel.toggleFavoriteStatus(movieId)
             }
-            updateFavoriteButtonIcon(viewModel.movie.value!!.isFavorite)
-            Log.d("MyApp", "livedata")
-            Log.d("MyApp", viewModel.movie.value!!.isFavorite.toString())
+            favMovieViewModel.isFavoriteMovie(movieId)
+            favMovieViewModel.isFavoriteMovie.observe(viewLifecycleOwner) { isFavorite ->
+                updateFavoriteButtonIcon(isFavorite)
+            }
         }
     }
 

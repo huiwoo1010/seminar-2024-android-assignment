@@ -42,7 +42,7 @@
             app:destination="@id/SearchInputFragment" />
         <argument
             android:name="movieList"
-            app:argType="com.wafflestudio.waffleseminar2024.MovieItem[]" />
+            app:argType="com.wafflestudio.waffleseminar2024.data.database.MyEntity[]" />
     </fragment>
 
     <fragment
